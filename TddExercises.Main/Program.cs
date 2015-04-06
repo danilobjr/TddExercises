@@ -10,7 +10,15 @@ namespace TddExercises.Main
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
+            Console.Write("Email: ");
+            var email = Console.ReadLine();
+            Console.Write("Password: ");
+            var password = Console.ReadLine();
+
+            Console.WriteLine("");
+            Console.WriteLine("Your register is for...");
+            Console.Write(string.Format("Email: {0}; Password: {1}.", email, password));
+
             Console.ReadKey();
         }
     }
