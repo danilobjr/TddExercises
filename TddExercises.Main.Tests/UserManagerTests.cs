@@ -2,6 +2,7 @@
 using TddExercises.Main.Models;
 using TddExercises.Main.Managers;
 using NUnit.Framework;
+using TddExercises.Main.Validators;
 
 namespace TddExercises.Main.Tests
 {
@@ -11,71 +12,133 @@ namespace TddExercises.Main.Tests
         [Test]
         public void Register_ValidNewUser_ReturnsTrue()
         {
+            // arrange
+            var newUser = new User
+            {
+                Email = "meaningless value",
+                Password = "meaningless value"
+            };
+
+            var manager = new UserManagerFake();
+            manager.IsUserCredentialsValid = true;
+
+            // act
+            var registered = manager.Register(newUser);
+
+            // assert
+            Assert.IsTrue(registered);
+        }
+
+        [Test]
+        public void Register_InvalidNewUser_ReturnsFalse()
+        {
+            // arrange
+            var invalidNewUser = new User
+            {
+                Email = "meaningless value",
+                Password = "meaningless value"
+            };
+
+            var manager = new UserManagerFake();
+            manager.IsUserCredentialsValid = false;
+
+            // act
+            var registered = manager.Register(invalidNewUser);
+
+            // assert
+            Assert.IsFalse(registered);
+        }
+
+        [Test]
+        public void Register_ValidNewUser_InsertNewUserInDatabase()
+        {
+            // arrange
+            var newUser = new User
+            {
+                Email = "meaningless value",
+                Password = "meaningless value"
+            };
+
+            var manager = new UserManagerFake();
+            manager.IsUserCredentialsValid = true;
+            manager.WasInsertInDatabaseMethodCalled = false;
+
+            // act
+            var registered = manager.Register(newUser);
+
+            // assert
+            Assert.IsTrue(manager.WasInsertInDatabaseMethodCalled);
+        }
+
+        [Test]
+        public void Register_ValidNewUser_SendAEmailToNewUser()
+        {
+            // arrange
             var newUser = new User
             {
                 Email = "meaningless email",
                 Password = "meaningless password"
             };
 
-            var userManager = new TestableUserManager();
-            userManager.IsUserCredentialsValid = true;
-            var result = userManager.Register(newUser);
+            var manager = new UserManagerFake();
+            manager.IsUserCredentialsValid = true;
+            manager.WasSendEmailToMethodCalled = false;
 
-            Assert.IsTrue(result);
+            // act
+            var registered = manager.Register(newUser);
+
+            // assert
+            Assert.IsTrue(manager.WasSendEmailToMethodCalled);
         }
 
         [Test]
-        public void Register_InvalidNewUser_ReturnsFalse()
+        public void IsCredentialsValid_ValidUser_ReturnsTrue()
         {
-            var invalidNewUser = new User
+            // arrange
+            var newUser = new User
             {
-                Email = "meaningless email",
-                Password = "meaningless password"
+                Email = "meaningless value",
+                Password = "meaningless value"
             };
 
-            var userManager = new TestableUserManager();
-            userManager.IsUserCredentialsValid = false;
-            var result = userManager.Register(invalidNewUser);
+            var validator = new UserValidatorFake(newUser);
+            validator.UserIsValid = true;
+            var manager = new UserManager(validator);
 
-            Assert.IsFalse(result);
+            // act
+            var credentialsIsValid = manager.IsCredentialsValid(newUser);
+
+            // assert
+            Assert.IsTrue(credentialsIsValid);
         }
 
         [Test]
-        public void Register_ValidNewUser_InsertNewUserInDatabase()
+        public void IsCredentialsValid_ValidationFails_ReturnsFalse()
         {
-            var invalidNewUser = new User
+            // arrange
+            var newUser = new User
             {
-                Email = "meaningless email",
-                Password = "meaningless password"
+                Email = "meaningless value",
+                Password = "meaningless value"
             };
 
-            var userManager = new TestableUserManager();
-            userManager.IsUserCredentialsValid = true;
-            userManager.WasInsertInDatabaseMethodCalled = false;
-            var result = userManager.Register(invalidNewUser);
+            var validator = new UserValidatorFake(newUser);
+            validator.UserIsValid = false;
+            var manager = new UserManager(validator);
 
-            Assert.IsTrue(userManager.WasInsertInDatabaseMethodCalled);
+            // act
+            var credentialsIsValid = manager.IsCredentialsValid(newUser);
+
+            // assert
+            Assert.IsFalse(credentialsIsValid);
         }
 
-        [Test]
-        public void Register_ValidNewUser_SendAEmailToNewUser()
-        {
-            var invalidNewUser = new User
-            {
-                Email = "meaningless email",
-                Password = "meaningless password"
-            };
+        // TODO - test InsertInDatabase
 
-            var userManager = new TestableUserManager();
-            userManager.IsUserCredentialsValid = true;
-            userManager.WasSendEmailToMethodCalled = false;
-            var result = userManager.Register(invalidNewUser);
-
-            Assert.IsTrue(userManager.WasSendEmailToMethodCalled);
-        }
+        // TODO - test SendEmailTo
     }
 
-    internal class TestableUserManager : UserManager
+    internal class UserManagerFake : UserManager
     {
         internal bool IsUserCredentialsValid { get; set; }
         public bool WasInsertInDatabaseMethodCalled { get; set; }
@@ -94,6 +157,20 @@ namespace TddExercises.Main.Tests
         public override void SendEmailTo(User newUser)
         {
             WasSendEmailToMethodCalled = true;
+        }
+    }
+
+    internal class UserValidatorFake : UserValidator
+    {
+        internal bool UserIsValid { get; set; }
+
+        public UserValidatorFake(User user) : base(user)
+        {
+        }
+
+        public override bool IsValid()
+        {
+            return UserIsValid;
         }
     }
 }

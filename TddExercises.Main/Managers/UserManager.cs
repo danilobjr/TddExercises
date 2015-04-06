@@ -4,11 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TddExercises.Main.Models;
+using TddExercises.Main.Validators;
 
 namespace TddExercises.Main.Managers
 {
     public class UserManager
     {
+        private IValidator validator;
+
+        public UserManager()
+        {
+        }
+
+        public UserManager(IValidator validator)
+        {
+            this.validator = validator;
+        }
+
         public bool Register(User newUser)
         {
             if (IsCredentialsValid(newUser))
@@ -24,7 +36,7 @@ namespace TddExercises.Main.Managers
 
         public virtual bool IsCredentialsValid(User user)
         {
-            throw new NotImplementedException();
+            return validator.IsValid();
         }
 
         public virtual void InsertInDatabase(User newUser)
