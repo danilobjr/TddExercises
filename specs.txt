@@ -1,0 +1,21 @@
+1. When register a new user
+
+- Check if username has the following constraints
+
+  1. Minimum length of 4
+  2. Maximum length of 8
+  3. Has no spaces
+  4. Has only letters and/or numbers
+
+- Check if password has the following constraints
+
+  1. Minimum length of 6
+  2. Maximum length of 10
+  3. Has no spaces
+  4. Has at least one lowercase letter
+  5. Has at least one uppercase letter
+  6. Has at least one digit
+  7. Has at least one symbol (._-!$)
+
+- Create a new user in the database
+- Send any email to new user
