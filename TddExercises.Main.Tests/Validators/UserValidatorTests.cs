@@ -18,183 +18,102 @@ namespace TddExercises.Main.Tests.Validators
         private UserValidator validator;
 
         [SetUp]
-        public void Init()
+        public void Setup()
         {
             this.user = new User();
             this.validator = new UserValidator(user);
         }
 
         [Test]
-        public void IsValid_ValidEmail_ReturnsTrue()
+        public void IsValid_ValidBothEmailAndPassword_ReturnsTrue()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            this.user.Password = this.validPassword;
-
-            // act
-            var isValid = this.validator.IsValid();
-
-            // assert
-            Assert.IsTrue(isValid);
+            Assert_IsValid_ReturnsTrue_When(email: validEmail, password: validPassword);
         }
 
         [Test]
         public void IsValid_EmptyEmail_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = "";
-
-            // act
-            var isValid = this.validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: "", password: validPassword);
         }
 
         [Test]
         public void IsValid_NullEmail_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = null;
-
-            // act
-            var isValid = this.validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: null, password: validPassword);
         }
 
         [Test]
         public void IsValid_InvalidEmail_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = "a@";
-
-            // act
-            var isValid = this.validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void IsValid_ValidPassword_ReturnsTrue()
-        {
-            // arrange
-            this.user.Email = this.validEmail;
-            this.user.Password = this.validPassword;
-
-            // act
-            var isValid = this.validator.IsValid();
-
-            // assert
-            Assert.IsTrue(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: "a@", password: validPassword);
         }
 
         [Test]
         public void IsValid_EmptyPassword_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "");
         }
 
         [Test]
         public void IsValid_PasswordWithLengthLessThan6_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "12345";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "12345");
         }
 
         [Test]
         public void IsValid_PasswordWithLengthMoreThan10_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "0123456789a";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "0123456789a");
         }
 
         [Test]
         public void IsValid_PasswordWithWhitespace_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "a bcde";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "a bcde");
         }
 
         [Test]
         public void IsValid_PasswordWithoutLowercaseLetter_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "ABC!23";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "ABC!23");
         }
 
         [Test]
         public void IsValid_PasswordWithoutUppercaseLetter_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "abc!23";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "abc!23");
         }
 
         [Test]
         public void IsValid_PasswordWithoutDigit_ReturnsFalse()
         {
-            // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "abcDE!";
-
-            // act
-            var isValid = validator.IsValid();
-
-            // assert
-            Assert.IsFalse(isValid);
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "abcDE!");
         }
 
         [Test]
         public void IsValid_PasswordWithoutSymbol_ReturnsFalse()
         {
+            Assert_IsValid_ReturnsFalse_When(email: validEmail, password: "abCD34");
+        }
+
+        private void Assert_IsValid_ReturnsTrue_When(string email, string password)
+        {
             // arrange
-            this.user.Email = this.validEmail;
-            user.Password = "abCD34";
+            user.Email = email;
+            user.Password = password;
+
+            // act
+            var isValid = validator.IsValid();
+
+            // assert
+            Assert.IsTrue(isValid);
+        }
+
+        private void Assert_IsValid_ReturnsFalse_When(string email, string password)
+        {
+            // arrange
+            user.Email = email;
+            user.Password = password;
 
             // act
             var isValid = validator.IsValid();
