@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TddExercises.Main.Models;
 
-namespace TddExercises.Main.Tests.Mothers
+namespace TddExercises.Main.Tests.Builders
 {
-    internal class UserMother
+    internal class UserBuilder
     {
         public static User GetOne()
         {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TddExercises.Main.Models;
 using TddExercises.Main.Tests.Managers.Account.Fakes;
-using TddExercises.Main.Tests.Mothers;
+using TddExercises.Main.Tests.Builders;
 
 namespace TddExercises.Main.Tests.Managers.Account
 {
@@ -19,7 +19,7 @@ namespace TddExercises.Main.Tests.Managers.Account
         [SetUp]
         public void Setup()
         {
-            newUser = UserMother.GetOne();
+            newUser = UserBuilder.GetOne();
         }
 
         [Test]

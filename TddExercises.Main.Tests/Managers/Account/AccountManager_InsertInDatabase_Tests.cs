@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TddExercises.Main.Managers;
 using TddExercises.Main.Models;
-using TddExercises.Main.Tests.Mothers;
+using TddExercises.Main.Tests.Builders;
 using TddExercises.Main.Tests.Repositories.Fakes;
 
 namespace TddExercises.Main.Tests.Managers.Account
@@ -18,7 +18,7 @@ namespace TddExercises.Main.Tests.Managers.Account
         public void InsertInDatabase_CreateMethodOfUserRepository_CalledOnce()
         {
             // arrange
-            var newUser = UserMother.GetOne();
+            var newUser = UserBuilder.GetOne();
 
             var repo = new UserRepositoryFake();
             repo.CreatedMethodCalledOnce = false;
