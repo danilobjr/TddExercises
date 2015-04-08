@@ -1,0 +1,2 @@
+1. Put AccountManagerTests in a single file
+2. Change the 'Fake' nomenclature to 'Testable'
