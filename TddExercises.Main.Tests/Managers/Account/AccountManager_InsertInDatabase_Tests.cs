@@ -18,7 +18,7 @@ namespace TddExercises.Main.Tests.Managers.Account
         public void InsertInDatabase_CreateMethodOfUserRepository_CalledOnce()
         {
             // arrange
-            var newUser = UserBuilder.GetOne();
+            var newUser = UserBuilder.AUser().Valid().Build();
 
             var repo = new UserRepositoryFake();
             repo.CreatedMethodCalledOnce = false;

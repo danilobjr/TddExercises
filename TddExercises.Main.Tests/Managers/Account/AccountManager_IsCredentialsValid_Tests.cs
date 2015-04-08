@@ -21,7 +21,7 @@ namespace TddExercises.Main.Tests.Managers.Account
         [SetUp]
         public void Setup()
         {
-            newUser = UserBuilder.GetOne();
+            newUser = UserBuilder.AUser().Valid().Build();
             validator = new UserValidatorFake(newUser);
             manager = new AccountManager(validator);
         }
