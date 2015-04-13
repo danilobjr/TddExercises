@@ -16,8 +16,8 @@ namespace TddExercises.Main
 
             try
             {
-                var accoutnManager = new AccountManager();
-                accoutnManager.RegisterNewUser(newUser);
+                var accountManager = new AccountManager();
+                accountManager.RegisterNewUser(newUser);
 
                 ShowSuccessMessageOnConsole(newUser);
             }

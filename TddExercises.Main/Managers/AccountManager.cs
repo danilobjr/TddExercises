@@ -12,56 +12,28 @@ namespace TddExercises.Main.Managers
 {
     public class AccountManager
     {
-        private UserValidator userValidator;
-        private UserRepository userRepository;
-        private Mailer mailer;
+        private UserValidator _userValidator;
+        private UserRepository _userRepository;
+        private Mailer _mailer;
 
         public AccountManager()
         {
-            userValidator = new UserValidator();
-        }
-
-        public AccountManager(UserValidator userValidator)
-        {
-            this.userValidator = userValidator;
-        }
-
-        public AccountManager(UserRepository userRepository)
-        {
-            this.userRepository = userRepository;
-        }
-
-        public AccountManager(Mailer mailer)
-        {
-            this.mailer = mailer;
+            _userValidator = new UserValidator();
+            _userRepository = new UserRepository();
+            _mailer = new Mailer();
         }
 
         public bool RegisterNewUser(User newUser)
         {
-            if (IsCredentialsValid(newUser))
+            if (_userValidator.IsValid(newUser))
             {
-                InsertInDatabase(newUser);
-                SendEmailTo(newUser.Email);
+                _userRepository.Create(newUser);
+                _mailer.Send("no@reply", newUser.Email, "Welcome", "Welcome email message");
 
                 return true;
             }
 
             return false;
-        }
-
-        public virtual bool IsCredentialsValid(User user)
-        {
-            return userValidator.IsValid(user);
-        }
-
-        public virtual void InsertInDatabase(User newUser)
-        {
-            userRepository.Create(newUser);
-        }
-
-        public virtual void SendEmailTo(string userEmail)
-        {
-            mailer.Send("no@reply", userEmail, "Welcome", "Welcome email message");
         }
     }
 }
