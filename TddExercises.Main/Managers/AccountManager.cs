@@ -36,7 +36,7 @@ namespace TddExercises.Main.Managers
             this.mailer = mailer;
         }
 
-        public bool Register(User newUser)
+        public bool RegisterNewUser(User newUser)
         {
             if (IsCredentialsValid(newUser))
             {

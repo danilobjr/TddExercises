@@ -29,7 +29,7 @@ namespace TddExercises.Main.Tests.Managers.Account
             managerFake.IsUserCredentialsValid = true;
 
             // act
-            var registered = managerFake.Register(validNewUser);
+            var registered = managerFake.RegisterNewUser(validNewUser);
 
             // assert
             Assert.IsTrue(registered);
@@ -44,7 +44,7 @@ namespace TddExercises.Main.Tests.Managers.Account
             managerFake.IsUserCredentialsValid = false;
 
             // act
-            var registered = managerFake.Register(invalidNewUser);
+            var registered = managerFake.RegisterNewUser(invalidNewUser);
 
             // assert
             Assert.IsFalse(registered);
@@ -58,7 +58,7 @@ namespace TddExercises.Main.Tests.Managers.Account
             managerFake.WasInsertInDatabaseMethodCalled = false;
 
             // act
-            var registered = managerFake.Register(validNewUser);
+            var registered = managerFake.RegisterNewUser(validNewUser);
 
             // assert
             Assert.IsTrue(managerFake.WasInsertInDatabaseMethodCalled);
@@ -72,7 +72,7 @@ namespace TddExercises.Main.Tests.Managers.Account
             managerFake.WasSendEmailToMethodCalled = false;
 
             // act
-            var registered = managerFake.Register(validNewUser);
+            var registered = managerFake.RegisterNewUser(validNewUser);
 
             // assert
             Assert.IsTrue(managerFake.WasSendEmailToMethodCalled);
