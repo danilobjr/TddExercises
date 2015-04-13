@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TddExercises.Main.Managers;
 
 namespace TddExercises.Main
 {
@@ -18,6 +19,8 @@ namespace TddExercises.Main
             Console.WriteLine("");
             Console.WriteLine("Your register is for...");
             Console.Write(string.Format("Email: {0}; Password: {1}.", email, password));
+
+            //new AccountManager()
 
             Console.ReadKey();
         }

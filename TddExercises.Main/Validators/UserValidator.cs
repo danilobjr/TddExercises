@@ -8,16 +8,13 @@ using TddExercises.Main.Models;
 
 namespace TddExercises.Main.Validators
 {
-    public class UserValidator : IValidator
+    public class UserValidator
     {
-        private User user;
-
-        public UserValidator(User user)
+        public UserValidator()
         {
-            this.user = user;
         }
 
-        public virtual bool IsValid()
+        public virtual bool IsValid(User user)
         {
             if (string.IsNullOrEmpty(user.Email)) { return false; }
             if (!Regex.IsMatch(user.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase)) 

@@ -12,17 +12,18 @@ namespace TddExercises.Main.Managers
 {
     public class AccountManager
     {
-        private IValidator validator;
+        private UserValidator userValidator;
         private UserRepository userRepository;
         private Mailer mailer;
 
         public AccountManager()
         {
+            userValidator = new UserValidator();
         }
 
-        public AccountManager(IValidator validator)
+        public AccountManager(UserValidator userValidator)
         {
-            this.validator = validator;
+            this.userValidator = userValidator;
         }
 
         public AccountManager(UserRepository userRepository)
@@ -30,7 +31,7 @@ namespace TddExercises.Main.Managers
             this.userRepository = userRepository;
         }
 
-        public AccountManager(Mail.Mailer mailer)
+        public AccountManager(Mailer mailer)
         {
             this.mailer = mailer;
         }
@@ -50,7 +51,7 @@ namespace TddExercises.Main.Managers
 
         public virtual bool IsCredentialsValid(User user)
         {
-            return validator.IsValid();
+            return userValidator.IsValid(user);
         }
 
         public virtual void InsertInDatabase(User newUser)

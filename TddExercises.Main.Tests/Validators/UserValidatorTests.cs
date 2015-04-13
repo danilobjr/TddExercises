@@ -15,13 +15,13 @@ namespace TddExercises.Main.Tests.Validators
         private string validEmail = "a@a.com.br";
         private string validPassword = "abCD12_!";
         private User user;
-        private UserValidator validator;
+        private UserValidator userValidator;
 
         [SetUp]
         public void Setup()
         {
-            this.user = new User();
-            this.validator = new UserValidator(user);
+            user = new User();
+            userValidator = new UserValidator();
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace TddExercises.Main.Tests.Validators
             user.Password = password;
 
             // act
-            var isValid = validator.IsValid();
+            var isValid = userValidator.IsValid(user);
 
             // assert
             Assert.IsTrue(isValid);
@@ -116,7 +116,7 @@ namespace TddExercises.Main.Tests.Validators
             user.Password = password;
 
             // act
-            var isValid = validator.IsValid();
+            var isValid = userValidator.IsValid(user);
 
             // assert
             Assert.IsFalse(isValid);

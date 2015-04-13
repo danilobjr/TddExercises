@@ -15,22 +15,22 @@ namespace TddExercises.Main.Tests.Managers.Account
     internal class AccountManager_IsCredentialsValid_Tests
     {
         private User newUser;
-        private UserValidatorFake validator;
+        private UserValidatorFake userValidator;
         private AccountManager manager;
 
         [SetUp]
         public void Setup()
         {
             newUser = UserBuilder.AUser().Valid().Build();
-            validator = new UserValidatorFake(newUser);
-            manager = new AccountManager(validator);
+            userValidator = new UserValidatorFake();
+            manager = new AccountManager(userValidator);
         }
 
         [Test]
         public void IsCredentialsValid_ValidUser_ReturnsTrue()
         {
             // arrange
-            validator.UserIsValid = true;
+            userValidator.UserIsValid = true;
 
             // act
             var credentialsIsValid = manager.IsCredentialsValid(newUser);
@@ -43,7 +43,7 @@ namespace TddExercises.Main.Tests.Managers.Account
         public void IsCredentialsValid_InvalidUser_ReturnsFalse()
         {
             // arrange
-            validator.UserIsValid = false;
+            userValidator.UserIsValid = false;
 
             // act
             var credentialsIsValid = manager.IsCredentialsValid(newUser);

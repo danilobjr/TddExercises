@@ -12,12 +12,7 @@ namespace TddExercises.Main.Tests.Validators.Fakes
     {
         internal bool UserIsValid { get; set; }
 
-        public UserValidatorFake(User user)
-            : base(user)
-        {
-        }
-
-        public override bool IsValid()
+        public override bool IsValid(User user)
         {
             return UserIsValid;
         }
