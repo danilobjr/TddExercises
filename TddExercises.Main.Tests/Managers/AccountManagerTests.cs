@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TddExercises.Main.Managers;
+using TddExercises.Main.Exceptions;
 using TddExercises.Main.Models;
 
 namespace TddExercises.Main.Tests.Managers

@@ -9,6 +9,7 @@ namespace TddExercises.Main.Models
     public class User
     {
         public string Email { get; set; }
+        public bool IsActive { get; internal set; }
         public string Password { get; set; }
     }
 }

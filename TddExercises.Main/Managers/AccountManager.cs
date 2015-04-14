@@ -8,7 +8,7 @@ using TddExercises.Main.Models;
 using TddExercises.Main.Repositories;
 using TddExercises.Main.Validators;
 
-namespace TddExercises.Main.Managers
+namespace TddExercises.Main.Exceptions
 {
     public class AccountManager
     {
@@ -34,6 +34,25 @@ namespace TddExercises.Main.Managers
             }
 
             return false;
+        }
+
+        public void DeleteUser(int userId)
+        {
+            var user = _userRepository.FindById(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            if (!user.IsActive)
+            {
+                _userRepository.Delete(userId);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot delete a active user");
+            }
         }
     }
 }

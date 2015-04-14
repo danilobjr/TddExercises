@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TddExercises.Main.Managers;
+using TddExercises.Main.Exceptions;
 using TddExercises.Main.Models;
 
 namespace TddExercises.Main
