@@ -14,5 +14,15 @@ namespace TddExercises.Main.Repositories
             // TODO - real implementation
             throw new NotImplementedException();
         }
+
+        internal User FindById(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Delete(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
